@@ -1,0 +1,53 @@
+﻿.post {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    width: 25rem;
+}
+
+    .post img {
+        width: 25rem;
+        height: 15rem;
+        border-radius: 1rem;
+        transition: transform .8s;
+    }
+
+        .post img:hover {
+            transform: scale(1.05);
+        }
+
+.posts-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5rem;
+    margin-top: 3rem;
+}
+
+#post-title {
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+.info-post {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+}
+
+.info-post img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 2rem;
+}
+
+.blank {
+    width: 25rem;
+    height: 15rem;
+    border-radius: 1rem;
+}

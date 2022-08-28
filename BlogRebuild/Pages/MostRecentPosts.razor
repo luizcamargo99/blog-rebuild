@@ -1,18 +1,29 @@
-﻿@if (_posts != null)
-{
-    @foreach(var post in _posts) 
+﻿<div class="posts-content">
+    @if (_posts != null)
     {
-        <div class="post">
-            <img src="@($"data:image/png;base64,{Convert.ToBase64String(post.PhotoBanner)}")" />
-            <span>@post.Title</span>
-        </div>
+        @foreach (var post in _posts)
+        {
+            <div class="post">
+                <img src="@($"data:image/png;base64,{Convert.ToBase64String(post.PhotoBanner)}")" />
+                <span id="post-title">@post.Title</span>
+                <div class="info-post">
+                    <img src="@($"data:image/png;base64,{Convert.ToBase64String(post.AuthorPhoto)}")" />
+                    <span>@post.AuthorName</span>
+                </div>
+            </div>
+        }
+
     }
-}
-else
-{
-    <div>
-    </div>
-}
+    else
+    {
+        @for (int i = 0; i < CountPosts; i++)
+        {
+            <div class="post loading-bg blank">
+            </div>
+        }
+    }
+
+</div>
 
 
 @code {
