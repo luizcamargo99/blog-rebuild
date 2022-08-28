@@ -20,9 +20,16 @@
 }
 
 .latest-banner-post {
-    width: 50rem;
-    height: 35rem;
+    width: 45rem;
+    height: 30rem;
     border-radius: 3rem;
+}
+
+.latest-banner-post-content {
+    display: flex;
+    gap: 5rem;
+    justify-content: center;
+    align-items: center;
 }
 
 .posts-content {
@@ -30,12 +37,12 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 3rem;
+    gap: 1.5rem;
     margin-top: 3rem;
     align-items: center;
 }
 
-#post-title {
+.post-title {
     font-size: 1.4rem;
     text-align: center;
     height: 4rem;
@@ -76,6 +83,6 @@
 
 .first-banner {
     display: flex;
-    justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
