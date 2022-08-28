@@ -1,16 +1,28 @@
-﻿<PageTitle>Counter</PageTitle>
+﻿
+<ul class="@(_categories != null ? "menu-navigation" : "menu-navigation  loading-bg" )">
+    @if (_categories != null)
+    {
+        @foreach (var category in _categories)
+        {
 
-<h1>Counter</h1>
+            <li><a href=''>@category.Name</a></li>
 
-<p role="status">Current count: @currentCount</p>
+        }
+    }
+</ul>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
-    private int currentCount = 0;
+    private List<CategoryDTO> _categories;
 
-    private void IncrementCount()
+    protected override async Task OnInitializedAsync()
     {
-        currentCount++;
+        _categories = await GetAllCategories();
+    }
+
+    private async Task<List<CategoryDTO>> GetAllCategories()
+    {
+        var request = await new CrudService(new HttpClient()).Get(Endpoints.Category);
+        return JsonConvert.DeserializeObject<List<CategoryDTO>>(await request.Content.ReadAsStringAsync());
     }
 }
