@@ -1,29 +1,43 @@
-﻿<div class="posts-content">
-    @if (_posts != null)
-    {
-        @foreach (var post in _posts)
+﻿@if (_posts != null)
+{
+    <div class="first-banner">
+        <img src="@($"data:image/png;base64,{Convert.ToBase64String(_posts.FirstOrDefault().PhotoBanner)}")" class="latest-banner-post" />
+    </div>
+
+
+    <div class="posts-content">
+
+        @foreach (var post in _posts.TakeLast(CountPosts - 1))
         {
             <div class="post">
-                <img src="@($"data:image/png;base64,{Convert.ToBase64String(post.PhotoBanner)}")" />
+                <div class="post-category"><span>@post.CategoryName</span></div>
+                <img class="banner-post" src="@($"data:image/png;base64,{Convert.ToBase64String(post.PhotoBanner)}")" />
                 <span id="post-title">@post.Title</span>
                 <div class="info-post">
                     <img src="@($"data:image/png;base64,{Convert.ToBase64String(post.AuthorPhoto)}")" />
                     <span>@post.AuthorName</span>
+                    <span>@post.Date.ToString("dd/MM/yyyy")</span>
                 </div>
             </div>
         }
 
-    }
-    else
-    {
-        @for (int i = 0; i < CountPosts; i++)
-        {
-            <div class="post loading-bg blank">
-            </div>
-        }
-    }
+    </div>
+}
+else
+{
+    <div class="first-banner">
+        <div class="latest-banner-post loading-bg">
+        </div>
+    </div>
 
-</div>
+    <div class="posts-content">
+        @for (int i = 0; i < CountPosts - 1; i++)
+        {
+            <div class="post loading-bg blank"> </div>
+        }
+    </div>
+}
+
 
 
 @code {

@@ -16,10 +16,5 @@ namespace BlogRebuild.Services
             
             return await _httpClient.GetAsync(string.Concat(Urls.ApiBlogAdmin, endpoint, query));
         }
-
-        private StringContent ConvertStringToStringContent(string jsonString)
-        {
-            return new StringContent(jsonString, System.Text.Encoding.UTF8, _mediaType);
-        }
     }
 }

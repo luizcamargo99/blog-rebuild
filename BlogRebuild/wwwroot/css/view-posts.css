@@ -6,31 +6,39 @@
     gap: 1rem;
     cursor: pointer;
     width: 25rem;
+    justify-content: center;
 }
 
-    .post img {
-        width: 25rem;
-        height: 15rem;
-        border-radius: 1rem;
-        transition: transform .8s;
-    }
+.banner-post {
+    width: 25rem;
+    height: 15rem;
+    border-radius: 1rem;    
+}
 
-        .post img:hover {
-            transform: scale(1.05);
-        }
+.banner-post, .latest-banner-post {
+    transition: transform .8s;
+}
+
+.latest-banner-post {
+    width: 50rem;
+    height: 35rem;
+    border-radius: 3rem;
+}
 
 .posts-content {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 5rem;
+    gap: 3rem;
     margin-top: 3rem;
+    align-items: center;
 }
 
 #post-title {
     font-size: 1.4rem;
     text-align: center;
+    height: 4rem;
 }
 
 .info-post {
@@ -40,14 +48,34 @@
     align-items: center;
 }
 
-.info-post img {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 2rem;
-}
+    .info-post img {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 2rem;
+    }
 
 .blank {
     width: 25rem;
     height: 15rem;
     border-radius: 1rem;
+}
+
+.post-category {
+    position: absolute;
+    background: #7500B8;
+    border-radius: 1rem;
+    margin: 0 0 21rem -15rem;
+    height: 2rem;
+    color: #fff;
+    width: 7.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.first-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
