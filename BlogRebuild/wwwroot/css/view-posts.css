@@ -12,24 +12,25 @@
 .banner-post {
     width: 25rem;
     height: 15rem;
-    border-radius: 1rem;    
+    border-radius: 1rem;
 }
 
-.banner-post, .latest-banner-post {
+.banner-post, .first-banner-post {
     transition: transform .8s;
 }
 
-.latest-banner-post {
+.first-banner-post {
     width: 45rem;
     height: 30rem;
     border-radius: 3rem;
 }
 
-.latest-banner-post-content {
+.first-banner-post-content {
     display: flex;
     gap: 5rem;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .posts-content {
@@ -85,4 +86,54 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+}
+
+.purple-strip {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    background: #7500B8;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-first-post {
+    width: 40rem; 
+    height: 15rem; 
+    border-radius: 2rem;
+}
+
+@media(max-width: 1540px) {
+    .info-first-post {
+        width: 24rem;
+        height: 12rem;
+    }
+
+    .first-banner-post {
+        width: 40rem;
+        height: 25rem;
+    }
+
+    .first-banner-post-content h1 {
+        font-size: 1.5rem;
+    }
+}
+
+@media(max-width: 1350px) {
+    .first-banner-post {
+        width: 25rem;
+        height: 15rem;
+    }
+}
+
+@media(max-width: 800px) {
+    .first-banner-post {
+        width: 25rem;
+        height: 15rem;
+    }
+
+    .first-banner-post-content {
+        gap: 2rem;
+    }
 }
