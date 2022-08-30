@@ -16,6 +16,9 @@
     <Reference Include="Data">
       <HintPath>..\Assemblies\Data.dll</HintPath>
     </Reference>
+    <Reference Include="Root">
+      <HintPath>..\Assemblies\Root.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

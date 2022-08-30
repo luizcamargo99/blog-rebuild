@@ -1,0 +1,22 @@
+﻿@page "/post/{Title}"
+
+@if(_post != null) {
+    <div>@_post.Content</div>
+}
+
+@code {
+    private PostDTO _post;
+
+    [Parameter]
+    public string Title { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _post = await GetPost();
+    }
+
+    private async Task<PostDTO> GetPost() {
+        var request = await new CrudService(new HttpClient()).Get($"{Endpoints.Post}/GetPostByFormattedTitle", $"?formattedTitle='{Title}'");
+        return JsonConvert.DeserializeObject<PostDTO>(await request.Content.ReadAsStringAsync());
+    }
+}
