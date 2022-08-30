@@ -145,7 +145,8 @@
     }
 
     .post-category {
-        margin: 0px 0 17rem -13rem;
+        margin-right: 13rem;
+        margin-bottom: 17rem;
     }
 
     .purple-strip {
