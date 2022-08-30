@@ -137,3 +137,15 @@
         gap: 2rem;
     }
 }
+
+@media(max-width: 500px) {
+    .banner-post {
+        width: 22rem;
+        height: 12rem;
+    }
+
+    .post-category {
+        margin: 0px 0 17rem -13rem;
+    }
+}
+
