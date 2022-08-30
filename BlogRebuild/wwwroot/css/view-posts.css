@@ -147,5 +147,14 @@
     .post-category {
         margin: 0px 0 17rem -13rem;
     }
+
+    .purple-strip {
+        font-size: 1.5rem;
+    }
+
+    .first-banner-post {
+        width: 22rem;
+        height: 12rem;
+    }
 }
 
