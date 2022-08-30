@@ -1,5 +1,11 @@
 ﻿
-<ul class="@(_categories != null ? "menu-navigation" : "menu-navigation  loading-bg" )">
+<div id="btn-mobile" @onclick="() => { _mobileActive = !_mobileActive; HandleMenuClass(); }">
+    <div id="line1" class="@(_mobileActive ? "line active" : "line" )"></div>
+    <div id="line2" class="@(_mobileActive ? "line active" : "line" )"></div>
+    <div id="line3" class="@(_mobileActive ? "line active" : "line" )"></div>
+</div>
+
+<ul class="@HandleMenuClass()" id="menu">
     @if (_categories != null)
     {
         @foreach (var category in _categories)
@@ -14,6 +20,7 @@
 
 @code {
     private List<CategoryDTO> _categories;
+    private bool _mobileActive = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -24,5 +31,22 @@
     {
         var request = await new CrudService(new HttpClient()).Get(Endpoints.Category);
         return JsonConvert.DeserializeObject<List<CategoryDTO>>(await request.Content.ReadAsStringAsync());
+    }
+
+    private string HandleMenuClass()
+    {
+        string classMenu = "menu-navigation";
+
+        if (_categories == null)
+        {
+            classMenu = string.Concat(classMenu, " loading-bg");
+        }
+
+        if (_mobileActive) 
+        {
+            classMenu = string.Concat(classMenu, " active");
+        }
+
+        return classMenu;
     }
 }

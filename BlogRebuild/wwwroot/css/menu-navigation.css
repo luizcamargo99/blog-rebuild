@@ -19,3 +19,72 @@ a {
     a:hover {
         color: #ffffff;
     }
+
+
+#btn-mobile {
+    display: none;
+}
+
+@media (max-width: 700px) {
+    #btn-mobile {
+        display: inline;
+        cursor: pointer;
+        float: right;
+        position: absolute;
+        margin: -4.5rem 3rem;
+    }
+
+    .menu-navigation a {
+        color: #000;
+    }
+
+    #menu {
+        display: block;
+        position: absolute;
+        top: 120px;
+        font-size: 20px;
+        width: 100%;
+        height: 0;
+        background: #ffffff;
+        transition: .6s;
+        z-index: 1000;
+        visibility: hidden;
+        overflow-y: hidden;
+    }
+
+        #menu.active {
+            height: calc(100vh - 90px);
+            visibility: visible;
+            overflow-y: auto;
+            width: 65%;
+        }
+
+        #menu li {
+            display: block;
+            padding: 1rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+        }
+
+
+    .line {
+        width: 1.5rem;
+        height: 0.25rem;
+        border-radius: 2px;
+        transition: transform .2s ease-out;
+        -webkit-transition: transform .2s ease-out;
+        background: #2D2D2D;
+        margin-top: 0.25em;
+    }
+
+    #line1.active {
+        transform: rotate(-45deg);
+    }
+
+    #line2.active {
+        transform: rotate(45deg);
+    }
+
+    #line3.active {
+        visibility: hidden;
+    }
+}
