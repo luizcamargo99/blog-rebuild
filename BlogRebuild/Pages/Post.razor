@@ -1,11 +1,19 @@
 ﻿@page "/post/{Title}"
 
-@if(_post != null) {
-    <span> @((MarkupString)_post.Content)</span>
+@if (_loading == false)
+{
+    if (_post != null) {
+        <PageTitle>Blog Rebuild | @_post.Title </PageTitle>
+        <span> @((MarkupString)_post.Content)</span>
+    }
+    else {
+        <span>Fala Dev! Não encontrei esse post..</span>
+    }
 }
 
 @code {
     private PostDTO _post;
+    private bool _loading = true;
 
     [Parameter]
     public string Title { get; set; }
@@ -13,6 +21,7 @@
     protected override async Task OnInitializedAsync()
     {
         _post = await GetPost();
+        _loading = false;
     }
 
     private async Task<PostDTO> GetPost() {
