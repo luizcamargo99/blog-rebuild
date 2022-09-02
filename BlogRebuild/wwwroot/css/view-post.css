@@ -1,0 +1,39 @@
+﻿.post-content {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    gap: 1rem;
+}
+
+    .post-content h1 {
+        width: 50rem;
+    }
+
+.banner-post-view {
+    width: 50rem;
+    height: 30rem;
+    border-radius: 3rem;
+}
+
+.content-text {
+    width: 50rem;
+    margin-top: 2rem;
+}
+
+#post-title {
+    width: 50rem;
+    height: 2.5rem;
+}
+
+.small-author {
+    width: 25rem;
+    height: 5rem;
+    border-radius: 2rem;
+}
+
+.content-blank {
+    height: 60rem;
+    width: 50rem;
+    border-radius: 3rem;
+}

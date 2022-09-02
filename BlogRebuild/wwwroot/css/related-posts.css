@@ -1,0 +1,16 @@
+﻿.related-posts {
+    display: grid;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    align-items: center;
+    padding-left: 0;
+    grid-template-columns: repeat(2, 0fr);
+}
+
+#related-posts-title {
+    text-align: center;
+    margin-top: 5rem;
+}

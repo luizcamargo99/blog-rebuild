@@ -1,0 +1,16 @@
+﻿<div class="info-post">
+    <img src="@($"data:image/png;base64,{Convert.ToBase64String(Photo)}")" />
+    <span>@Name</span>
+    <span>@Date.ToString("dd/MM/yyyy")</span>
+</div>
+
+@code {
+    [Parameter]
+    public byte[] Photo { get; set; }
+
+    [Parameter]
+    public string Name { get; set; }
+
+    [Parameter]
+    public DateTime Date { get; set; }
+}

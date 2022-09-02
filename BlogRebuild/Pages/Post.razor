@@ -2,17 +2,37 @@
 
 @if (_loading == false)
 {
-    if (_post != null) {
+    if (_post != null)
+    {
         <PageTitle>Blog Rebuild | @_post.Title </PageTitle>
-        <span> @((MarkupString)_post.Content)</span>
+
+        <div class="post-content">
+            <h1>@_post.Title</h1>
+            <AuthorSmall Photo="_post.AuthorPhoto" Name="@_post.AuthorName" Date="_post.Date"></AuthorSmall>
+            <img src="@($"data:image/png;base64,{Convert.ToBase64String(_post.PhotoBanner)}")" class="banner-post-view" />
+            <span class="content-text"> @((MarkupString)_post.Content)</span>
+        </div>
+
+        <RelatedPosts Title="@Title"></RelatedPosts>
+
     }
-    else {
-        <span>Fala Dev! Não encontrei esse post..</span>
+    else
+    {
+        <NotFound></NotFound>
     }
+}
+else
+{
+    <div class="post-content">
+        <div id="post-title" class=" blank loading-bg"></div>
+        <div class="loading-bg small-author"></div>
+        <div class="loading-bg banner-post-view"></div>
+        <div class="loading-bg content-blank"></div>
+    </div>
 }
 
 @code {
-    private PostDTO _post;
+    private PostViewDTO _post;
     private bool _loading = true;
 
     [Parameter]
@@ -24,8 +44,9 @@
         _loading = false;
     }
 
-    private async Task<PostDTO> GetPost() {
+    private async Task<PostViewDTO> GetPost()
+    {
         var request = await new CrudService(new HttpClient()).Get($"{Endpoints.Post}/GetPostByFormattedTitle", $"?formattedTitle={Title}");
-        return JsonConvert.DeserializeObject<PostDTO>(await request.Content.ReadAsStringAsync());
+        return JsonConvert.DeserializeObject<PostViewDTO>(await request.Content.ReadAsStringAsync());
     }
 }

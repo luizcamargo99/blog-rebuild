@@ -1,0 +1,48 @@
+﻿@if (_posts != null)
+{
+    <h2 id="related-posts-title">posts relacionados</h2>
+    <div class="related-posts">     
+        @foreach (var post in _posts)
+        {
+            <div class="post" @onclick='()=> { navigationManager.NavigateTo($"/post/{post.Title.RemoveSpecialCharacter()}", true); }'>
+                <div class="post-category"><span>@post.CategoryName</span></div>
+                <img class="banner-post" src="@($"data:image/png;base64,{Convert.ToBase64String(post.PhotoBanner)}")" />
+                <span class="post-title">@post.Title</span>
+                <AuthorSmall Photo="post.AuthorPhoto" Name="@post.AuthorName" Date="post.Date"></AuthorSmall>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="related-posts">
+        @for (int i = 0; i < _count; i++)
+        {
+            <div class="post loading-bg blank"> </div>
+        }
+    </div>
+}
+
+
+
+@code {
+    private List<MostRecentPostDTO> _posts;
+    private bool _loading = true;
+    private int _count = 4;
+
+    [Parameter]
+    public string Title { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _posts = await GetPosts();
+        _loading = false;
+    }
+
+    private async Task<List<MostRecentPostDTO>> GetPosts()
+    {
+        var request = await new CrudService(new HttpClient()).Get($"{Endpoints.Post}/GetRelatedPosts", $"?formattedTitle={Title}");
+        return JsonConvert.DeserializeObject <List<MostRecentPostDTO>> (await request.Content.ReadAsStringAsync());
+    }
+
+}
