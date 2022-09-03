@@ -6,7 +6,9 @@
         {
             <div class="post" @onclick='()=> { navigationManager.NavigateTo($"/post/{post.Title.RemoveSpecialCharacter()}", true); }'>
                 <div class="post-category"><span>@post.CategoryName</span></div>
-                <img class="banner-post" src="@($"data:image/png;base64,{Convert.ToBase64String(post.PhotoBanner)}")" />
+                <div class="img-wrapper">
+                    <img class="banner-post" src="@($"data:image/png;base64,{Convert.ToBase64String(post.PhotoBanner)}")" />
+                </div>
                 <span class="post-title">@post.Title</span>
                 <AuthorSmall Photo="post.AuthorPhoto" Name="@post.AuthorName" Date="post.Date"></AuthorSmall>
             </div>

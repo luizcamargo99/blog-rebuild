@@ -2,13 +2,14 @@
 {
     <div class="first-banner">
         <div class="first-banner-post-content" @onclick='()=> { navigationManager.NavigateTo($"/post/{_posts.FirstOrDefault().Title.RemoveSpecialCharacter()}"); }'>
-            <img src="@($"data:image/png;base64,{Convert.ToBase64String(_posts.FirstOrDefault().PhotoBanner)}")" class="first-banner-post" />
+            <div class="img-wrapper">
+                <img src="@($"data:image/png;base64,{Convert.ToBase64String(_posts.FirstOrDefault().PhotoBanner)}")" class="first-banner-post" />
+            </div>
             <div>
                 <div class="purple-strip"><span>se liga no último post!</span></div>
                 <span>@_posts.FirstOrDefault().CategoryName</span>
                 <h1>@_posts.FirstOrDefault().Title</h1>
-                <AuthorSmall Photo="_posts.FirstOrDefault().AuthorPhoto" Name="@_posts.FirstOrDefault().AuthorName"
-                         Date="_posts.FirstOrDefault().Date"></AuthorSmall>
+                <AuthorSmall Photo="_posts.FirstOrDefault().AuthorPhoto" Name="@_posts.FirstOrDefault().AuthorName" Date="_posts.FirstOrDefault().Date"></AuthorSmall>
             </div>
         </div>
     </div>
@@ -20,7 +21,9 @@
         {
             <div class="post" @onclick='()=> { navigationManager.NavigateTo($"/post/{post.Title.RemoveSpecialCharacter()}"); }'>
                 <div class="post-category"><span>@post.CategoryName</span></div>
-                <img class="banner-post" src="@($"data:image/png;base64,{Convert.ToBase64String(post.PhotoBanner)}")" />
+                <div class="img-wrapper">
+                    <img class="banner-post" src="@($"data:image/png;base64,{Convert.ToBase64String(post.PhotoBanner)}")" />
+                </div>
                 <span class="post-title">@post.Title</span>
                 <AuthorSmall Photo="post.AuthorPhoto" Name="@post.AuthorName" Date="post.Date"></AuthorSmall>
             </div>

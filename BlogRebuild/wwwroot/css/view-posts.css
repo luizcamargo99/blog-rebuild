@@ -23,7 +23,7 @@
 .first-banner-post {
     width: 36rem;
     height: 25rem;
-    border-radius: 3rem;
+    border-radius: 2rem;
 }
 
 .first-banner-post-content {
@@ -110,6 +110,29 @@
     width: 40rem; 
     height: 15rem; 
     border-radius: 2rem;
+}
+
+.img-wrapper {
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 2rem;
+}
+
+    .img-wrapper img {
+        -webkit-transition: all .4s ease;
+        -moz-transition: all .4s ease;
+        -ms-transition: all .4s ease;
+        -o-transition: all .4s ease;
+        transition: all .4s ease;
+        vertical-align: middle;
+    }
+
+.img-wrapper img:hover {
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
 }
 
 @media(max-width: 1540px) {
