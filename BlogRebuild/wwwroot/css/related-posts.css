@@ -10,7 +10,18 @@
     grid-template-columns: repeat(2, 0fr);
 }
 
-#related-posts-title {
+.related-posts-title {
     text-align: center;
     margin-top: 5rem;
+}
+
+.related-posts-loading {
+    width: 25rem;
+    height: 3rem;
+}
+
+@media(max-width: 920px) {
+    .related-posts {
+        grid-template-columns: repeat(1, 0fr);
+    }
 }

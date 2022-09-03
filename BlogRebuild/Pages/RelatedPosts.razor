@@ -1,7 +1,7 @@
 ﻿@if (_posts != null)
 {
-    <h2 id="related-posts-title">posts relacionados</h2>
-    <div class="related-posts">     
+    <h2 class="related-posts-title">posts relacionados</h2>
+    <div class="related-posts">
         @foreach (var post in _posts)
         {
             <div class="post" @onclick='()=> { navigationManager.NavigateTo($"/post/{post.Title.RemoveSpecialCharacter()}", true); }'>
@@ -15,6 +15,10 @@
 }
 else
 {
+    <div class="align-content-center" style="display: flex;justify-content: center;">
+        <div class="related-posts-title loading-bg related-posts-loading blank"></div>
+    </div>
+
     <div class="related-posts">
         @for (int i = 0; i < _count; i++)
         {
@@ -42,7 +46,7 @@ else
     private async Task<List<MostRecentPostDTO>> GetPosts()
     {
         var request = await new CrudService(new HttpClient()).Get($"{Endpoints.Post}/GetRelatedPosts", $"?formattedTitle={Title}");
-        return JsonConvert.DeserializeObject <List<MostRecentPostDTO>> (await request.Content.ReadAsStringAsync());
+        return JsonConvert.DeserializeObject<List<MostRecentPostDTO>>(await request.Content.ReadAsStringAsync());
     }
 
 }

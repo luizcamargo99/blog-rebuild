@@ -37,3 +37,66 @@
     width: 50rem;
     border-radius: 3rem;
 }
+
+@media(max-width: 890px) {
+    .banner-post-view, .content-text, #post-title, .content-blank, .post-content h1 {
+        width: 47rem;
+    }
+}
+
+@media(max-width: 820px) {
+    .banner-post-view, .content-text, #post-title, .content-blank, .post-content h1 {
+        width: 45rem;
+    }
+}
+
+@media(max-width: 780px) {
+    .banner-post-view, .content-text, #post-title, .content-blank, .post-content h1 {
+        width: 40rem;
+    }
+
+
+    .banner-post-view {
+        height: 25rem;
+    }
+}
+
+@media(max-width: 720px) {
+    .banner-post-view, .content-text, #post-title, .content-blank, .post-content h1 {
+        width: 30rem;
+    }
+
+    .banner-post-view {
+        height: 20rem;
+    }
+}
+
+@media(max-width: 520px) {
+    .banner-post-view, .content-text, #post-title, .content-blank, .post-content h1 {
+        width: 25rem;
+    }
+
+    .banner-post-view {
+        height: 15rem;
+    }
+}
+
+@media(max-width: 440px) {
+    .banner-post-view, .content-text, #post-title, .content-blank, .post-content h1 {
+        width: 22rem;
+    }
+
+    .banner-post-view {
+        height: 12rem;
+    }
+}
+
+@media(max-width: 400px) {
+    .banner-post-view, .content-text, #post-title, .content-blank, .post-content h1 {
+        width: 19rem;
+    }
+
+    .banner-post-view {
+        height: 9rem;
+    }
+}
