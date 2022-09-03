@@ -135,6 +135,22 @@
     transform: scale(1.2);
 }
 
+.load-more-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+    .load-more-content button {
+        border-radius: 1rem;
+        background: #7500B8;
+        color: #fff;
+        border: none;
+        height: 2rem;
+        width: 9rem;
+    }
+
 @media(max-width: 1540px) {
     .info-first-post {
         width: 24rem;

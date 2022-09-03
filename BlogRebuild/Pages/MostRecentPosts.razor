@@ -1,4 +1,6 @@
-﻿@if (_posts != null)
+﻿@using Data.Models.Entities
+
+@if (_loading == false && _posts != null && _posts.Count > 0)
 {
     <div class="first-banner">
         <div class="first-banner-post-content" @onclick='()=> { navigationManager.NavigateTo($"/post/{_posts.FirstOrDefault().Title.RemoveSpecialCharacter()}"); }'>
@@ -17,7 +19,7 @@
 
     <div class="posts-content">
 
-        @foreach (var post in _posts.TakeLast(CountPosts - 1))
+        @foreach (var post in _posts.TakeLast((_pagination.ItemPerPage * _pagination.Page) - 1).Where(x => x.Id != _posts.FirstOrDefault().Id))
         {
             <div class="post" @onclick='()=> { navigationManager.NavigateTo($"/post/{post.Title.RemoveSpecialCharacter()}"); }'>
                 <div class="post-category"><span>@post.CategoryName</span></div>
@@ -30,6 +32,14 @@
         }
 
     </div>
+
+    @if (_endOfPage == false)
+    {
+        <div class="load-more-content">
+            <button onclick="@(async () => await LoadMore(++_pagination.Page))">Carregar mais...</button>
+        </div>
+       
+    }
 }
 else
 {
@@ -53,20 +63,41 @@ else
 
 
 @code {
-    private List<MostRecentPostDTO> _posts;
+    private List<MostRecentPostDTO> _posts = new List<MostRecentPostDTO>();
+    private Pagination _pagination;
+    private bool _loading = true;
+    private bool _endOfPage = false;
 
     [Parameter]
     public int CountPosts { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        _posts = await GetMostRecentPosts();
+
+        await LoadMore(1);
+        _loading = false;
     }
 
     private async Task<List<MostRecentPostDTO>> GetMostRecentPosts()
     {
-        var request = await new CrudService(new HttpClient()).Get($"{Endpoints.Post}/GetMostRecent", $"?count={CountPosts}");
+        var request = await new CrudService(new HttpClient()).Get($"{Endpoints.Post}/GetMostRecent", $"?page={_pagination.Page}&count={_pagination.ItemPerPage}");
         return JsonConvert.DeserializeObject<List<MostRecentPostDTO>>(await request.Content.ReadAsStringAsync());
     }
 
+    private async Task LoadMore(int page)
+    {
+        _pagination = new Pagination(page, CountPosts);
+
+        var posts = await GetMostRecentPosts();
+
+        if (posts.Count < _pagination.ItemPerPage)
+        {
+            _endOfPage = true;
+        }
+       
+        foreach (var post in posts)
+        {
+            _posts.Add(post);
+        }
+    }
 }
