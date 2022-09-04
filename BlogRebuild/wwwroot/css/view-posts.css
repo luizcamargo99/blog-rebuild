@@ -33,6 +33,7 @@
     align-items: center;
     flex-wrap: wrap;
     cursor: pointer;
+    margin-top: 4rem;
 }
 
 .posts-content {
@@ -148,7 +149,7 @@
         color: #fff;
         border: none;
         height: 3rem;
-        width: 12rem;
+        width: 15rem;
         font-size: 1.2rem;
         cursor: pointer;
     }

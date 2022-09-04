@@ -1,6 +1,6 @@
 ﻿<div class="info-post">
     <img src="@($"data:image/png;base64,{Convert.ToBase64String(Photo)}")" />
-    <span>@Name</span>
+    <span class="author-name-small" @onclick='()=> { navigationManager.NavigateTo($"/author/{Name.RemoveSpecialCharacter()}"); }'>@Name</span>
     <span>@Date.ToString("dd/MM/yyyy")</span>
 </div>
 

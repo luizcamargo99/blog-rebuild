@@ -1,0 +1,51 @@
+﻿.author-banner {
+    width: 100%;
+    height: 25rem;
+    background: #7500B8;
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    justify-content: center;
+    color: #fff;
+}
+
+#author-photo {
+    height: 20rem;
+    width: 20rem;
+    border-radius: 10rem;
+    border: 0.2rem solid;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+    width: 25rem;
+}
+
+@media(max-width: 830px) {
+    #author-photo {
+        height: 15rem;
+        width: 15rem;
+    }
+
+}
+
+@media(max-width: 730px) {
+    #author-photo {
+        height: 10rem;
+        width: 10rem;
+    }
+}
+
+@media(max-width: 680px) {
+    .author-banner {
+        height: 40rem;
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 415px) {
+    .author-info {
+        width: 20rem;
+    }
+}

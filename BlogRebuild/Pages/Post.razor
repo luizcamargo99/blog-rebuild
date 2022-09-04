@@ -34,6 +34,7 @@ else
 @code {
     private PostViewDTO _post;
     private bool _loading = true;
+    private string _postContent;
 
     [Parameter]
     public string Title { get; set; }
@@ -41,6 +42,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         _post = await GetPost();
+        var test = ((MarkupString)_post.Content);
         _loading = false;
     }
 

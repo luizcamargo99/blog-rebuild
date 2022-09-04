@@ -38,7 +38,7 @@
         <div class="load-more-content">
             <button onclick="@(async () => await LoadMore(++_pagination.Page))" disabled="@(_loadingLoadMore)">@(_loadingLoadMore ? "Carregando mais..." : "Carregar mais...")</button>
         </div>
-       
+
     }
 }
 else
@@ -72,6 +72,9 @@ else
     [Parameter]
     public int CountPosts { get; set; }
 
+    [Parameter]
+    public string AuthorName { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         await LoadMore(1);
@@ -84,19 +87,34 @@ else
         return JsonConvert.DeserializeObject<List<MostRecentPostDTO>>(await request.Content.ReadAsStringAsync());
     }
 
+    private async Task<List<MostRecentPostDTO>> GetMostRecentPostsByAuthor()
+    {
+        var request = await new CrudService(new HttpClient()).Get($"{Endpoints.Author}/GetMostRecentPostsByFormattedName", $"?formattedName={AuthorName}&page={_pagination.Page}&count={_pagination.ItemPerPage}");
+        return JsonConvert.DeserializeObject<List<MostRecentPostDTO>>(await request.Content.ReadAsStringAsync());
+    }
+
     private async Task LoadMore(int page)
     {
         _loadingLoadMore = true;
 
         _pagination = new Pagination(page, CountPosts);
 
-        var posts = await GetMostRecentPosts();
+        var posts = new List<MostRecentPostDTO>();
+
+        if (string.IsNullOrEmpty(AuthorName) == false)
+        {
+            posts = await GetMostRecentPostsByAuthor();
+        }
+        else
+        {
+            posts = await GetMostRecentPosts();
+        }
 
         if (posts.Count < _pagination.ItemPerPage)
         {
             _endOfPage = true;
         }
-       
+
         foreach (var post in posts)
         {
             _posts.Add(post);

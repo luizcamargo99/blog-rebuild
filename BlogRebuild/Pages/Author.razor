@@ -1,0 +1,54 @@
+﻿@page "/author/{Name}"
+
+@if (_loading == false)
+{
+    if (_author != null)
+    {
+        <PageTitle>Blog Rebuild | @_author.Name </PageTitle>
+
+        <div class="author-banner">
+            <img id="author-photo" src="@($"data:image/png;base64,{Convert.ToBase64String(_author.Photo)}")" />
+            <div class="author-info">
+                <span>AUTOR</span>
+                <h1 style="margin-bottom: 3rem;">@_author.Name</h1>
+                <span style="margin-bottom: 3rem;">@_author.Bio</span>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <img src="./images/trofeu.png" style="width: 2rem;">
+                    <span>@(_author.PostsCount) posts publicados!</span>
+                </div>
+               
+            </div>
+        </div>
+
+        <MostRecentPosts CountPosts="7" AuthorName="@Name"></MostRecentPosts>
+
+    }
+    else
+    {
+        <NotFound></NotFound>
+    }
+}
+
+else {
+    <div class="author-banner loading-bg blank"></div>
+}
+
+@code {
+    private AuthorViewDTO _author;
+    private bool _loading = true;
+
+    [Parameter]
+    public string Name { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _author = await GetAuthor();
+        _loading = false;
+    }
+
+    private async Task<AuthorViewDTO> GetAuthor()
+    {
+        var request = await new CrudService(new HttpClient()).Get($"{Endpoints.Author}/GetByFormattedName", $"?formattedName={Name}");
+        return JsonConvert.DeserializeObject<AuthorViewDTO>(await request.Content.ReadAsStringAsync());
+    }
+}
