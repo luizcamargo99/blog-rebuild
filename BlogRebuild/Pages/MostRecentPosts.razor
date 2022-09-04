@@ -1,6 +1,6 @@
 ﻿@using Data.Models.Entities
 
-@if (_loading == false && _posts != null && _posts.Count > 0)
+@if (_loadingInitial == false && _posts != null && _posts.Count > 0)
 {
     <div class="first-banner">
         <div class="first-banner-post-content" @onclick='()=> { navigationManager.NavigateTo($"/post/{_posts.FirstOrDefault().Title.RemoveSpecialCharacter()}"); }'>
@@ -36,7 +36,7 @@
     @if (_endOfPage == false)
     {
         <div class="load-more-content">
-            <button onclick="@(async () => await LoadMore(++_pagination.Page))">Carregar mais...</button>
+            <button onclick="@(async () => await LoadMore(++_pagination.Page))" disabled="@(_loadingLoadMore)">@(_loadingLoadMore ? "Carregando mais..." : "Carregar mais...")</button>
         </div>
        
     }
@@ -65,7 +65,8 @@ else
 @code {
     private List<MostRecentPostDTO> _posts = new List<MostRecentPostDTO>();
     private Pagination _pagination;
-    private bool _loading = true;
+    private bool _loadingInitial = true;
+    private bool _loadingLoadMore = false;
     private bool _endOfPage = false;
 
     [Parameter]
@@ -73,9 +74,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-
         await LoadMore(1);
-        _loading = false;
+        _loadingInitial = false;
     }
 
     private async Task<List<MostRecentPostDTO>> GetMostRecentPosts()
@@ -86,6 +86,8 @@ else
 
     private async Task LoadMore(int page)
     {
+        _loadingLoadMore = true;
+
         _pagination = new Pagination(page, CountPosts);
 
         var posts = await GetMostRecentPosts();
@@ -99,5 +101,7 @@ else
         {
             _posts.Add(post);
         }
+
+        _loadingLoadMore = false;
     }
 }

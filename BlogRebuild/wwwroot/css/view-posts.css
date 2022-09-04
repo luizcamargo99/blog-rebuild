@@ -143,13 +143,20 @@
 }
 
     .load-more-content button {
-        border-radius: 1rem;
+        border-radius: 2rem;
         background: #7500B8;
         color: #fff;
         border: none;
-        height: 2rem;
-        width: 9rem;
+        height: 3rem;
+        width: 12rem;
+        font-size: 1.2rem;
+        cursor: pointer;
     }
+
+        .load-more-content button:disabled {
+            background: #7500b878;
+            cursor: wait;
+        }
 
 @media(max-width: 1540px) {
     .info-first-post {
