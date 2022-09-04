@@ -14,9 +14,13 @@
                 <span style="margin-bottom: 3rem; text-align: justify;">@_author.Bio</span>
                 <div style="display: flex; align-items: center; gap: 1rem;">
                     <img src="./images/trofeu.png" style="width: 2rem;">
-                    <span>@(_author.PostsCount) posts publicados!</span>
+                    @if (_author.PostsCount > 0)
+                    {
+                        <span>@(_author.PostsCount == 1 ? $"{_author.PostsCount} post publicado" : $"{_author.PostsCount} posts publicados")!</span>
+                    }
+
                 </div>
-               
+
             </div>
         </div>
 
@@ -29,7 +33,8 @@
     }
 }
 
-else {
+else
+{
     <div class="author-banner loading-bg blank"></div>
 }
 

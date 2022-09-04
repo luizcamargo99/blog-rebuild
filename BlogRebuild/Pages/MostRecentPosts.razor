@@ -7,7 +7,7 @@
             <div class="img-wrapper">
                 <img src="@($"data:image/png;base64,{Convert.ToBase64String(_posts.FirstOrDefault().PhotoBanner)}")" class="first-banner-post" />
             </div>
-            <div>
+            <div class="info-post-right">
                 <div class="purple-strip"><span>se liga no último post!</span></div>
                 <span>@_posts.FirstOrDefault().CategoryName</span>
                 <h1>@_posts.FirstOrDefault().Title</h1>

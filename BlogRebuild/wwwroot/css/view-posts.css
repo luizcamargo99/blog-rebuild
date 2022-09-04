@@ -159,6 +159,10 @@
             cursor: wait;
         }
 
+.info-post-right {
+    width: 40rem;
+}
+
 @media(max-width: 1540px) {
     .info-first-post {
         width: 24rem;
@@ -178,6 +182,10 @@
 
     .first-banner-post-content h1 {
         font-size: 1.5rem;
+    }
+
+    .info-post-right {
+        width: 25rem;
     }
 }
 
@@ -225,5 +233,11 @@
     .post {
         height: 21rem;
         width: 22rem;
+    }
+}
+
+@media(max-width: 420px) {
+    .info-post-right {
+        width: 20rem;
     }
 }
