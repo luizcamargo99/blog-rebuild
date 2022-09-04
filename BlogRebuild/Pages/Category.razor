@@ -1,0 +1,45 @@
+﻿@page "/category/{Name}"
+
+@if (_loading == false)
+{
+    if (_category != null)
+    {
+        <PageTitle>Blog Rebuild | @_category.Name </PageTitle>
+
+       <div class="category-banner">
+            <h1>@_category.Name</h1>
+       </div>
+
+        <MostRecentPosts CountPosts="7" CategoryName="@_category.Name.RemoveSpecialCharacter()"></MostRecentPosts>
+
+    }
+    else
+    {
+        <NotFound></NotFound>
+    }
+}
+
+else
+{
+    <div class="author-banner loading-bg blank"></div>
+}
+
+@code {
+    private CategoryViewDTO _category;
+    private bool _loading = true;
+
+    [Parameter]
+    public string Name { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _category = await GetCategory();
+        _loading = false;
+    }
+
+    private async Task<CategoryViewDTO> GetCategory()
+    {
+        var request = await new CrudService(new HttpClient()).Get($"{Endpoints.Category}/GetByFormattedName", $"?formattedName={Name}");
+        return JsonConvert.DeserializeObject<CategoryViewDTO>(await request.Content.ReadAsStringAsync());
+    }
+}

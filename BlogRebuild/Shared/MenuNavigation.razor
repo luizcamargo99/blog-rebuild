@@ -10,7 +10,7 @@
     {
         @foreach (var category in _categories)
         {
-            <li><a href=''>@category.Name</a></li>
+            <li @onclick='()=> { navigationManager.NavigateTo($"/category/{category.Name.RemoveSpecialCharacter()}", true); }' style="cursor: pointer;">@category.Name</li>
         }
     }
 </ul>

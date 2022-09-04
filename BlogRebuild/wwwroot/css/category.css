@@ -1,0 +1,17 @@
+﻿
+.category-banner {
+    width: 100%;
+    height: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #2D2D2D;
+    color: #fff;
+    margin-bottom: 2rem;
+}
+
+@media(max-width: 700px) {
+    .category-banner {
+        height: 10rem;
+    }
+}

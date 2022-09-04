@@ -48,7 +48,7 @@ else
 
     private async Task<PostViewDTO> GetPost()
     {
-        var request = await new CrudService(new HttpClient()).Get($"{Endpoints.Post}/GetPostByFormattedTitle", $"?formattedTitle={Title}");
+        var request = await new CrudService(new HttpClient()).Get($"{Endpoints.Post}/GetByFormattedTitle", $"?formattedTitle={Title}");
         return JsonConvert.DeserializeObject<PostViewDTO>(await request.Content.ReadAsStringAsync());
     }
 }
