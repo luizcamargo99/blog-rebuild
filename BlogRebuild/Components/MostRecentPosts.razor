@@ -18,9 +18,7 @@
             </div>
         </div>
 
-
         <div class="posts-content">
-
             @foreach (var post in _posts.TakeLast((_pagination.ItemPerPage * _pagination.Page) - 1).Where(x => x.Id != _posts.FirstOrDefault().Id))
             {
                 <div class="post" @onclick='()=> { navigationManager.NavigateTo($"/post/{post.Title.RemoveSpecialCharacter()}"); }'>
@@ -32,7 +30,6 @@
                     <AuthorSmall Photo="post.AuthorPhoto" Name="@post.AuthorName" Date="post.Date"></AuthorSmall>
                 </div>
             }
-
         </div>
 
         @if (_endOfPage == false)
