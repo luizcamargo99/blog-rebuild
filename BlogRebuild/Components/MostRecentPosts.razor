@@ -46,7 +46,7 @@
             <img src="./images/bill-gates.webp" style="width: 20rem; border-radius: 2rem;" />
             <h2> Não há posts a mostrar :(</h2>
         </div>
-   
+
     }
 
 }
@@ -93,49 +93,15 @@ else
         _loadingInitial = false;
     }
 
-    private async Task<List<MostRecentPostDTO>> GetMostRecentPosts()
-    {
-        var request = await new CrudService(new HttpClient()).Get($"{Endpoints.Post}/GetMostRecent", $"?page={_pagination.Page}&count={_pagination.ItemPerPage}");
-        return JsonConvert.DeserializeObject<List<MostRecentPostDTO>>(await request.Content.ReadAsStringAsync());
-    }
-
-    private async Task<List<MostRecentPostDTO>> GetMostRecentPostsByAuthor()
-    {
-        var request = await new CrudService(new HttpClient()).Get($"{Endpoints.Author}/GetMostRecentPostsByFormattedName", $"?formattedName={AuthorName}&page={_pagination.Page}&count={_pagination.ItemPerPage}");
-        return JsonConvert.DeserializeObject<List<MostRecentPostDTO>>(await request.Content.ReadAsStringAsync());
-    }
-
-    private async Task<List<MostRecentPostDTO>> GetMostRecentPostsByCategory()
-    {
-        var request = await new CrudService(new HttpClient()).Get($"{Endpoints.Category}/GetMostRecentPostsByFormattedName", $"?formattedName={CategoryName}&page={_pagination.Page}&count={_pagination.ItemPerPage}");
-        return JsonConvert.DeserializeObject<List<MostRecentPostDTO>>(await request.Content.ReadAsStringAsync());
-    }
-
     private async Task LoadMore(int page)
     {
         _loadingLoadMore = true;
 
         _pagination = new Pagination(page, CountPosts);
 
-        var posts = new List<MostRecentPostDTO>();
+        var posts = await CheckWhoWillCall();
 
-        if (string.IsNullOrEmpty(AuthorName) == false)
-        {
-            posts = await GetMostRecentPostsByAuthor();
-        }
-        else if (string.IsNullOrEmpty(CategoryName) == false)
-        {
-            posts = await GetMostRecentPostsByCategory();
-        }
-        else
-        {
-            posts = await GetMostRecentPosts();
-        }
-
-        if (posts.Count < _pagination.ItemPerPage)
-        {
-            _endOfPage = true;
-        }
+        _endOfPage = posts.Count < _pagination.ItemPerPage;
 
         foreach (var post in posts)
         {
@@ -144,4 +110,31 @@ else
 
         _loadingLoadMore = false;
     }
+
+    private async Task<List<MostRecentPostDTO>> CheckWhoWillCall()
+    {
+        var posts = new List<MostRecentPostDTO>();
+
+        if (string.IsNullOrEmpty(AuthorName) == false)
+        {
+            posts = await GetMostRecentPosts($"{Endpoints.Author}/GetMostRecentPostsByFormattedName", $"?formattedName={AuthorName}&page={_pagination.Page}&count={_pagination.ItemPerPage}");
+        }
+        else if (string.IsNullOrEmpty(CategoryName) == false)
+        {
+            posts = await GetMostRecentPosts($"{Endpoints.Category}/GetMostRecentPostsByFormattedName", $"?formattedName={CategoryName}&page={_pagination.Page}&count={_pagination.ItemPerPage}");
+        }
+        else
+        {
+            posts = await GetMostRecentPosts($"{Endpoints.Post}/GetMostRecent", $"?page={_pagination.Page}&count={_pagination.ItemPerPage}");
+        }
+
+        return posts;
+    }
+
+    private async Task<List<MostRecentPostDTO>> GetMostRecentPosts(string endpoint, string query)
+    {
+        var request = await new CrudService(new HttpClient()).Get(endpoint, query);
+        return JsonConvert.DeserializeObject<List<MostRecentPostDTO>>(await request.Content.ReadAsStringAsync());
+    }
+
 }
