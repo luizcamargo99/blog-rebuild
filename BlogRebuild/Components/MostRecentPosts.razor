@@ -19,7 +19,7 @@
         </div>
 
         <div class="posts-content">
-            @foreach (var post in _posts.TakeLast((_pagination.ItemPerPage * _pagination.Page) - 1).Where(x => x.Id != _posts.FirstOrDefault().Id))
+            @foreach (var post in _posts.TakeLast((_pagination.ItemPerPage * _pagination.Page) - 1).Where(x => x.Title != _posts.FirstOrDefault().Title))
             {
                 <div class="post" @onclick='()=> { navigationManager.NavigateTo($"/post/{post.Title.RemoveSpecialCharacter()}"); }'>
                     <div class="post-category"><span>@post.CategoryName</span></div>
@@ -89,7 +89,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadMore(1);
+        int initialPage = 1;
+        await LoadMore(initialPage);
         _loadingInitial = false;
     }
 
